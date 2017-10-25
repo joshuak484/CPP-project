@@ -7,7 +7,7 @@ class SudokuElement
     int numberspace;
     int** constituents;
   public:
-    SudokuElement(int = 9, int*);
+    SudokuElement(int = 9, int**);
     virtual bool isValid();
 };
 
