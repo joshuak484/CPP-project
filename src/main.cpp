@@ -1,4 +1,4 @@
-#include "SudokuBoard.hpp"
+#include "Sudoku.hpp"
 #include <iostream>
 
 
@@ -7,6 +7,14 @@ using namespace std;
 
 
 
+int main()
+{
+  Sudoku s = Sudoku();
+  
+  cout << s.isValid() << endl;
+}
+
+/*
 int main()
 {
   SudokuBoard sb;
@@ -119,4 +127,4 @@ int main()
     }
     cout << endl;
   }
-}
+}*/

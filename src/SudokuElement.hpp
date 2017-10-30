@@ -2,13 +2,12 @@
 #define SUDOKUELEMENT_HPP
 
 class SudokuElement
-{
-  private:
+{// maybe make a pure virtual?
+  protected:
     int numberspace;
     int** constituents;
   public:
-    SudokuElement(int = 9, int**);
-    virtual bool isValid();
+    bool isValid();
 };
 
-#enfid //SUDOKUELEMENT_HPP
+#endif //SUDOKUELEMENT_HPP

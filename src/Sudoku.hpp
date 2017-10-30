@@ -1,14 +1,21 @@
 #ifndef SUDOKU_HPP
 #define SUDOKU_HPP
 
-class Sudoku
+#include "SudokuBoard.hpp"
+#include "SudokuRow.hpp"
+#include "SudokuColumn.hpp"
+#include "SudokuNonomino.hpp"
+
+
+class Sudoku : public SudokuBoard
 {
   private:
     int numberspace;
     SudokuElement** rules;
-    SudokuBoard board;
   public:
-    Sudoku(int = 9, SudokuElement** = NULL);
+    Sudoku();
+    void getNewBoard9(int**&);
+    bool isValid();
 };
 
 #endif //SUDOKU_HPP

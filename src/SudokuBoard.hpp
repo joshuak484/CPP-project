@@ -3,7 +3,7 @@
 
 class SudokuBoard
 {
-  private:
+  protected:
     int** playspace;
     int numberSpace;
   public:

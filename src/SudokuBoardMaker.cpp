@@ -99,7 +99,7 @@ bool isValid(int** board)
   
   return correctness;
 }
-
+/*****************
 int main()
 {
   int** sudoku;
@@ -204,7 +204,7 @@ int main()
   sudoku[8][5] = 1;
   sudoku[8][6] = 7;
   sudoku[8][7] = 3;
-  sudoku[8][8] = 8;*/
+  sudoku[8][8] = 8;*
     if(isValid(sudoku))
     {
       for (int i = 0; i < 9; i++)
@@ -219,7 +219,7 @@ int main()
       counter++;
     }
   }
-}
+}**********************/
 
 int numberOfZeroes(int* array,int arraylength)
 {
