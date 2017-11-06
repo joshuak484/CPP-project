@@ -6,7 +6,7 @@
 class SudokuRow : public virtual SudokuElement
 {
   public:
-    SudokuRow(int***, int, int); //SudokuBoard, row#, NumberSpace
+    SudokuRow(int**&, int, int); //SudokuBoard, row#, NumberSpace
 };
 
 #endif //SUDOKUROW_HPP

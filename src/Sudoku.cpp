@@ -6,18 +6,18 @@ using namespace std;
 Sudoku::Sudoku() : SudokuBoard(9)
 {
   this->numberspace = 9;
-  cout << "made namespace" << endl;
+  //cout << "made namespace" << endl;
   
   this->playspace = new int*[9];
-  cout << "made rows of playspace" << endl;
+  //cout << "made rows of playspace" << endl;
   
   for (int i = 0; i < 9; ++i)
     (this->playspace)[i] = new int[9];
-  cout << "made cols of playspace" << endl;
+  //cout << "made cols of playspace" << endl;
   
   getNewBoard9(this->playspace);
-  cout << "initiailized playspace" << endl;
-  
+  /*cout << "initiailized playspace" << endl;
+
   for (int i = 0; i < 9; i++)
   {
     for (int j = 0; j < 9; j++)
@@ -25,10 +25,10 @@ Sudoku::Sudoku() : SudokuBoard(9)
       cout << (this->playspace)[i][j] << " ";
     }
     cout << endl;
-  }
+  }*/
   
   this->rules = new SudokuElement*[27];
-  cout << "made rules" << endl;
+  //cout << "made rules" << endl;
   
   for(int i = 0; i< 27; i++)
   {
@@ -38,13 +38,13 @@ Sudoku::Sudoku() : SudokuBoard(9)
     
     if(set == 0) //Do sudoku rows
     {
-      newElement = new SudokuRow(&(this->playspace), setPart, 9);
-      cout << "making row rule: " << setPart << endl;
+      newElement = new SudokuRow(this->playspace, setPart, 9);
+      //cout << "making row rule: " << setPart << endl;
     }
     else if(set == 1) // Do sudoku cols
     {
       newElement = new SudokuColumn(this->playspace, setPart, 9);
-      cout << "making col rule: " << setPart << endl;
+      //cout << "making col rule: " << setPart << endl;
     }
     else // Do sudoku nonos
     {
@@ -72,12 +72,12 @@ Sudoku::Sudoku() : SudokuBoard(9)
       }
       
       newElement = new SudokuNonomino(this->playspace, shape, 9);
-      cout << "making nono rule: " << setPart << endl;
+      //cout << "making nono rule: " << setPart << endl;
     }
     
     (this->rules)[i] = newElement;
   }
-  cout << "All rules made" << endl;
+  //cout << "All rules made" << endl;
 }
 
 
@@ -148,7 +148,7 @@ void Sudoku::getNewBoard9(int**& sudoku)
   sudoku[6][1] = 6;
   sudoku[6][2] = 3;
   sudoku[6][3] = 5;
-  sudoku[6][4] = 3;
+  sudoku[6][4] = 2;
   sudoku[6][5] = 4;
   sudoku[6][6] = 1;
   sudoku[6][7] = 8;
@@ -181,11 +181,11 @@ bool Sudoku::isValid()
 {
   for(int i = 0; i < 27; i++)
   {
-    cout << "getting rule: " << i << endl;
+    //cout << "getting rule: " << i << endl;
     SudokuElement* rule = (this->rules)[i];
-    cout << "getting validity: " << i << endl;
+    //cout << "getting validity: " << i << endl;
     int validity = rule->isValid();
-    cout << "returning: " << i << endl;
+    //cout << "returning: " << i << endl;
     if(!validity)
     {
       return false;

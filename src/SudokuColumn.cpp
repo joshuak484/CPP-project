@@ -8,6 +8,6 @@ SudokuColumn::SudokuColumn(int**& board, int colNumber, int numberspace)
   this->constituents = new int*[numberspace];
   for(int row = 0 ; row < numberspace; row++)
   {
-    this->constituents[row] = &(board[row][numberspace]);
+    this->constituents[row] = &(board[row][colNumber]);
   }
 }
