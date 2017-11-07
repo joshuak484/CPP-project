@@ -192,20 +192,6 @@ bool isValid(int** board)
   
   return correctness;
 }
-
-void printSudoku(int** board)
-{
-  for (int i = 0; i < 9; i++)
-  {
-    for (int j = 0; j < 9; j++)
-    {
-      cout << board[i][j] << " ";
-    }
-    cout << endl;
-  }
-  cout << endl;
-}
-/*
 int main()
 {
   int** sudoku;
@@ -222,15 +208,14 @@ int main()
       for(int j=0;j<9;j++)
         sudoku[i][j] = rand() % 9 + 1;
   
-  
+
     if(isValid(sudoku))
     {
       printSudoku(board);
       counter++;
     }
   }
-}
-*/
+
 int numberOfZeroes(int* array,int arraylength)
 {
   int output = 0;
