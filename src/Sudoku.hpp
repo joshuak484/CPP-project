@@ -22,6 +22,7 @@ class Sudoku : public SudokuBoard
     SudokuElement** rules;
   public:
     Sudoku(vector<vector<vector<int> > >);
+    ~Sudoku();
     void getNewBoard9(int**&);
     bool isValid();
     void populate(int, int, int);

@@ -81,6 +81,13 @@ Sudoku::Sudoku(const vector<vector<vector<int> > > answers) : SudokuBoard(9)
 
 
 
+Sudoku::~Sudoku()
+{
+  delete [] (this->rules);
+}
+
+
+
 void Sudoku::populate(int row, int col, int num)
 {
   if((*((this->lockedNumbers).getPlayspace()))[row][col] == 0)

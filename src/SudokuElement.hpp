@@ -8,6 +8,7 @@ class SudokuElement
     int** constituents;
   public:
     bool isValid();
+    ~SudokuElement();
 };
 
 #endif //SUDOKUELEMENT_HPP

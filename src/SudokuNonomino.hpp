@@ -8,7 +8,8 @@ class SudokuNonomino : public virtual SudokuElement
   private:
     bool** shape;
   public:
-    SudokuNonomino(int**&, bool**, int); //SudokuBoard, shape of the nonomino, NumberSpace
+    SudokuNonomino(int**&, bool**, int);
+    ~SudokuNonomino();
 };
 
 #endif //SUDOKUNONOMINO_HPP

@@ -14,3 +14,12 @@ bool SudokuElement::isValid()
   
   return (sum == expectedValue);
 }
+
+
+
+SudokuElement::~SudokuElement()
+{
+  for (int i = 0; i < this->numberspace; ++i)
+    delete [] (this->constituents)[i];
+  delete [] (this->constituents);
+}

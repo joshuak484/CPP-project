@@ -19,3 +19,12 @@ SudokuNonomino::SudokuNonomino(int**& board, bool** shape, int numberspace)
     }
   }
 }
+
+
+
+SudokuNonomino::~SudokuNonomino()
+{
+  for (int i = 0; i < this->numberspace; ++i)
+    delete [] (this->shape)[i];
+  delete [] (this->shape);
+}
