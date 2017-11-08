@@ -1,5 +1,11 @@
 #include "Sudoku.hpp"
+#include "inputLibrary.hpp"
+
+
+
 #include <iostream>
+#include <fstream>
+#include <vector>
 
 
 
@@ -7,124 +13,130 @@ using namespace std;
 
 
 
-int main()
+vector<vector<vector<int> > > getBoards9()
 {
-  Sudoku s = Sudoku();
+  ifstream file("boards.txt"); 
+  int numberOfBoards;
+  file>>numberOfBoards;
+  vector< vector< vector< int > > > boards(numberOfBoards, vector< vector< int > >  (9, vector< int > (9)));
   
-  cout << s.isValid() << endl;
+  for(int i = 0; i < numberOfBoards; i++)
+  {
+    for(int j = 0; j < 9; j++)
+    {
+      for(int k = 0; k < 9; k++)
+      {
+        file>>(boards[i][j][k]);   
+      }
+    }
+  }
+  
+  return boards;
 }
 
-/*
+
+
 int main()
 {
-  SudokuBoard sb;
-  sb = SudokuBoard();
+  vector<vector<vector<int> > > answers = getBoards9();
   
-  int** sudoku;
-  sudoku = new int*[9];
-  for (int i = 0; i < 9; ++i)
-    sudoku[i] = new int[9];
+  char runflag = 0;
+  do{
+    runflag = rcinc("Would you like to play a game? (y/n): ");
     
-  sudoku[0][0] = 2;
-  sudoku[0][1] = 9;
-  sudoku[0][2] = 5;
-  sudoku[0][3] = 7;
-  sudoku[0][4] = 4;
-  sudoku[0][5] = 3;
-  sudoku[0][6] = 8;
-  sudoku[0][7] = 6;
-  sudoku[0][8] = 1;
-  
-  sudoku[1][0] = 4;
-  sudoku[1][1] = 3;
-  sudoku[1][2] = 1;
-  sudoku[1][3] = 8;
-  sudoku[1][4] = 6;
-  sudoku[1][5] = 5;
-  sudoku[1][6] = 9;
-  sudoku[1][7] = 2;
-  sudoku[1][8] = 7;
-  
-  sudoku[2][0] = 8;
-  sudoku[2][1] = 7;
-  sudoku[2][2] = 6;
-  sudoku[2][3] = 1;
-  sudoku[2][4] = 9;
-  sudoku[2][5] = 2;
-  sudoku[2][6] = 5;
-  sudoku[2][7] = 4;
-  sudoku[2][8] = 3;
-  
-  sudoku[3][0] = 3;
-  sudoku[3][1] = 8;
-  sudoku[3][2] = 7;
-  sudoku[3][3] = 4;
-  sudoku[3][4] = 5;
-  sudoku[3][5] = 9;
-  sudoku[3][6] = 2;
-  sudoku[3][7] = 1;
-  sudoku[3][8] = 6;
-  
-  sudoku[4][0] = 6;
-  sudoku[4][1] = 1;
-  sudoku[4][2] = 2;
-  sudoku[4][3] = 3;
-  sudoku[4][4] = 8;
-  sudoku[4][5] = 7;
-  sudoku[4][6] = 4;
-  sudoku[4][7] = 9;
-  sudoku[4][8] = 5;
-  
-  sudoku[5][0] = 5;
-  sudoku[5][1] = 4;
-  sudoku[5][2] = 9;
-  sudoku[5][3] = 2;
-  sudoku[5][4] = 1;
-  sudoku[5][5] = 6;
-  sudoku[5][6] = 7;
-  sudoku[5][7] = 3;
-  sudoku[5][8] = 8;
-  
-  sudoku[6][0] = 7;
-  sudoku[6][1] = 6;
-  sudoku[6][2] = 3;
-  sudoku[6][3] = 5;
-  sudoku[6][4] = 3;
-  sudoku[6][5] = 4;
-  sudoku[6][6] = 1;
-  sudoku[6][7] = 8;
-  sudoku[6][8] = 9;
-  
-  sudoku[7][0] = 9;
-  sudoku[7][1] = 2;
-  sudoku[7][2] = 8;
-  sudoku[7][3] = 6;
-  sudoku[7][4] = 7;
-  sudoku[7][5] = 1;
-  sudoku[7][6] = 3;
-  sudoku[7][7] = 5;
-  sudoku[7][8] = 4;
-  
-  sudoku[8][0] = 1;
-  sudoku[8][1] = 5;
-  sudoku[8][2] = 4;
-  sudoku[8][3] = 9;
-  sudoku[8][4] = 3;
-  sudoku[8][5] = 8;
-  sudoku[8][6] = 6;
-  sudoku[8][7] = 7;
-  sudoku[8][8] = 2;
-                  
-  sb.setPlayspace(&sudoku);
-  
-  int** sbp = *sb.getPlayspace();
-  
-  for (int i = 0; i < 9; i++)
-  {
-    for (int j = 0; j < 9; j++)
+    if(runflag == 'y')
     {
-      cout << sbp[i][j] << " ";
+      Sudoku s = Sudoku(answers);
+      while(!s.isValid())
+      {
+        cout << endl << endl<< "Quit at any time by inputting 'Q'" << s << "Leave input sequence at any time by inputting 'L'" << endl;
+        try
+        {
+          int row;
+          do
+          {
+            row = rcinc("Choose a row? (a-i): ") - 'a';
+            if(row == ('Q' - 'a'))
+            {
+              throw(string("Thank you for playing!"));
+            }
+            else if(row == ('L' - 'a'))
+            {
+              throw(0);
+            }
+            else if(row < 0 || row > 9)
+            {
+              cout << "\tCheck yo sef. Ya jus REKT ya sef." << endl;
+            }
+          } while(row < 0 || row > 9);
+          
+          int col;
+          do
+          {
+            col = rcinc("Choose a col? (A-I): ") - 'A';
+            if(col == ('Q' - 'a'))
+            {
+              throw(string("Thank you for playing!"));
+            }
+            else if(col == ('L' - 'A'))
+            {
+              throw(0);
+            }
+            else if(col < 0 || col > 9)
+            {
+              cout << "\tCheck yo sef. Ya jus REKT ya sef." << endl;
+            }
+          } while(col < 0 || col > 9);
+          
+          int num;
+          do
+          {
+            num = rcinc("Choose a num? (1-9): ") - '0';
+            if(num == ('Q' - '0'))
+            {
+              throw(string("Thank you for playing!"));
+            }
+            else if(num == ('L' - '0'))
+            {
+              throw(0);
+            }
+            else if(num < 1 || num > 9)
+            {
+              cout << "\tCheck yo sef. Ya jus REKT ya sef." << endl;
+            }
+          } while(num < 1 || num > 9);
+          
+          try
+          {
+            s.populate(row, col, num);
+          } catch(string message)
+          {
+            cout << message << endl;
+          }
+        } catch(string message)
+        {
+          cout << message << endl;
+          runflag = 'n';
+          break;
+        } catch(int errorCode)
+        {
+          cout << "\tDisregarding input..." << endl;
+        }
+      }
+      
+      if(s.isValid())
+      {
+        cout << "You won!" << endl << endl;
+      }
     }
-    cout << endl;
-  }
-}*/
+    else if(runflag == 'n')
+    {
+      cout << "Yeah, run while you can." << endl;
+    }
+    else
+    {
+      cout << "\tYa done did somethin wrong." << endl;
+    }
+    
+  } while(runflag != 'n');
+}

@@ -2,7 +2,7 @@
 
 
 
-SudokuNonomino::SudokuNonomino(int**& board, bool** shape, int numberspace) //SudokuBoard, shape of the nonomino, NumberSpace
+SudokuNonomino::SudokuNonomino(int**& board, bool** shape, int numberspace)
 {
   this->shape = shape;
   this->numberspace = numberspace;

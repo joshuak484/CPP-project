@@ -1,34 +1,38 @@
 #include "Sudoku.hpp"
 
-#include <iostream>
-using namespace std;
 
-Sudoku::Sudoku() : SudokuBoard(9)
+
+Sudoku::Sudoku(const vector<vector<vector<int> > > answers) : SudokuBoard(9)
 {
-  this->numberspace = 9;
-  //cout << "made namespace" << endl;
-  
-  this->playspace = new int*[9];
-  //cout << "made rows of playspace" << endl;
-  
+  lockedNumbers = SudokuBoard(9);
+  int** ps = new int*[9];
   for (int i = 0; i < 9; ++i)
-    (this->playspace)[i] = new int[9];
-  //cout << "made cols of playspace" << endl;
-  
-  getNewBoard9(this->playspace);
-  /*cout << "initiailized playspace" << endl;
-
-  for (int i = 0; i < 9; i++)
+    ps[i] = new int[9];
+  srand(time(NULL));
+  int chosenAnswerIndex = rand() % answers.size();
+  vector<vector<int> > chosenAnswer = answers[chosenAnswerIndex];
+  for(int i = 0; i < 9; i++)
   {
+    for(int j = 0; j < 9; j++)
+    {
+      bool prob = (rand() % 2 == 1)?true:false;
+      ps[i][j] = prob?(chosenAnswer[i][j]):0;
+    }
+  }
+  lockedNumbers.setPlayspace(&ps);
+  
+  this->numberspace = 9;
+  this->playspace = new int*[9];
+  for (int i = 0; i < 9; ++i)
+  {
+    (this->playspace)[i] = new int[9];
     for (int j = 0; j < 9; j++)
     {
-      cout << (this->playspace)[i][j] << " ";
+      (this->playspace)[i][j] = ps[i][j];
     }
-    cout << endl;
-  }*/
+  }
   
   this->rules = new SudokuElement*[27];
-  //cout << "made rules" << endl;
   
   for(int i = 0; i< 27; i++)
   {
@@ -36,17 +40,15 @@ Sudoku::Sudoku() : SudokuBoard(9)
     int setPart = i%9;
     SudokuElement* newElement;
     
-    if(set == 0) //Do sudoku rows
+    if(set == 0)
     {
       newElement = new SudokuRow(this->playspace, setPart, 9);
-      //cout << "making row rule: " << setPart << endl;
     }
-    else if(set == 1) // Do sudoku cols
+    else if(set == 1)
     {
       newElement = new SudokuColumn(this->playspace, setPart, 9);
-      //cout << "making col rule: " << setPart << endl;
     }
-    else // Do sudoku nonos
+    else
     {
       int nonoRow = setPart / 3;
       int nonoCol = setPart % 3;
@@ -70,14 +72,25 @@ Sudoku::Sudoku() : SudokuBoard(9)
           }
         }
       }
-      
       newElement = new SudokuNonomino(this->playspace, shape, 9);
-      //cout << "making nono rule: " << setPart << endl;
     }
     
     (this->rules)[i] = newElement;
   }
-  //cout << "All rules made" << endl;
+}
+
+
+
+void Sudoku::populate(int row, int col, int num)
+{
+  if((*((this->lockedNumbers).getPlayspace()))[row][col] == 0)
+  {
+    (this->playspace)[row][col] = num;
+  }
+  else
+  {
+    throw(string("\tGreen numbers are unchangeable, please try again."));
+  }
 }
 
 
@@ -181,15 +194,44 @@ bool Sudoku::isValid()
 {
   for(int i = 0; i < 27; i++)
   {
-    //cout << "getting rule: " << i << endl;
     SudokuElement* rule = (this->rules)[i];
-    //cout << "getting validity: " << i << endl;
     int validity = rule->isValid();
-    //cout << "returning: " << i << endl;
     if(!validity)
     {
       return false;
     }
   }
   return true;
+}
+
+
+
+ostream& operator<<(ostream& os, Sudoku& s)
+{
+  os <<  endl << " |A  B  C  D  E  F  G  H  I\n---------------------------\n";
+  for(int a = 0; a < 9; a++)
+  {
+    os << (char)('a' + a) <<  "|";
+    for(int b = 0; b < 9; b++)
+    {
+      int spot = (s.playspace)[a][b];
+      bool taken = (((*(s.lockedNumbers).getPlayspace()))[a][b] != 0);
+      if(spot == 0)
+      {
+        os << "+  ";
+      }
+      else
+      {
+        if(taken){
+          os << "\e[1;32m";
+        }
+        os << spot << "  ";
+        os << "\e[0m";
+      }
+    }
+    if(a!=8)
+      os << endl << " |\n";
+  }
+  os << endl;
+  return os;
 }

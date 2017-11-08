@@ -6,7 +6,7 @@
 class SudokuColumn : public virtual SudokuElement
 {
   public:
-    SudokuColumn(int**&, int, int); //SudokuBoard, col#, NumberSpace
+    SudokuColumn(int**&, int, int);
 };
 
 #endif //SUDOKUCOLUMN_HPP
