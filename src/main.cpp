@@ -74,7 +74,7 @@ int main()
           do
           {
             col = rcinc("Choose a col? (A-I): ") - 'A';
-            if(col == ('Q' - 'a'))
+            if(col == ('Q' - 'A'))
             {
               throw(string("Thank you for playing!"));
             }
